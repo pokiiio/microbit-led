@@ -15,5 +15,4 @@ Control a LED matrix on BBC micro:bit boards with Web Bluetooth API.
 
 ## Misc
 
- - https://www.instagram.com/p/BedTahKlj1a/
- - https://www.instagram.com/p/BeeEVGyFio9/
+ - https://www.instagram.com/p/Besf_DdFIzm/
