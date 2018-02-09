@@ -12,7 +12,7 @@ const LED_MATRIX_STATE = "e95d7b77-251d-470a-a062-fa1922dfa9a8";
 
 function onClickStartButton() {
   if (!navigator.bluetooth) {
-    alert("Web Bluetooth is not supported.")
+    showModal("Web Bluetooth is not supported.")
     return;
   }
 
@@ -21,7 +21,7 @@ function onClickStartButton() {
 
 function onClickStopButton() {
   if (!navigator.bluetooth) {
-    alert("Web Bluetooth is not supported.")
+    showModal("Web Bluetooth is not supported.")
     return;
   }
 
@@ -35,7 +35,7 @@ function onChangeCheckBox() {
 
   ledMatrixStateCharacteristic.writeValue(generateUint8Array())
     .catch(error => {
-      alert(error);
+      showModal(error);
     });
 }
 
@@ -71,14 +71,14 @@ function requestDevice() {
       connect(targetDevice);
     })
     .catch(error => {
-      alert(error);
+      showModal(error);
       targetDevice = null;
     });
 }
 
 function disconnect() {
   if (targetDevice == null) {
-    alert('target device is null.');
+    showModal('target device is null.');
     return;
   }
 
@@ -93,7 +93,7 @@ function connect(device) {
       findLedService(server);
     })
     .catch(error => {
-      alert(error);
+      showModal(error);
     });
 }
 
@@ -103,7 +103,7 @@ function findLedService(server) {
       findLedMatrixStateCharacteristic(service);
     })
     .catch(error => {
-      alert(error);
+      showModal(error);
     });
 }
 
@@ -113,10 +113,15 @@ function findLedMatrixStateCharacteristic(service) {
       ledMatrixStateCharacteristic = characteristic;
       ledMatrixStateCharacteristic.writeValue(new Uint8Array(5))
         .catch(error => {
-          alert(error);
+          showModal(error);
         });
     })
     .catch(error => {
-      alert('LED Matrix State characteristic not found.');
+      showModal('LED Matrix State characteristic not found.');
     });
+}
+
+function showModal(message) {
+  document.getElementsByName("modal-message")[0].innerHTML = message;
+  $("#myModal").modal("show");
 }
